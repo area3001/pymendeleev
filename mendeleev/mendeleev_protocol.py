@@ -74,7 +74,10 @@ class MendeleevProtocol(asyncio.Protocol):
     async def _send_recv(self, pkt, timeout=3):
         self._sent_pkt = pkt
         self._recv_future = self._loop.create_future()
-        self._transport.write(bytes(pkt))
+        with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
+        logger.debug("sending %s", with_preamble_bytes)
+        # logger.debug("sending pkt %s" % str(with_preamble_bytes))
+        self._transport.write(with_preamble_bytes)
         return await asyncio.wait_for(self._recv_future, timeout)
 
     async def _broadcast(self, pkt, wait=1):
@@ -129,6 +132,37 @@ class MendeleevProtocol(asyncio.Protocol):
         if self._transport:
             self._transport.abort()
             self._transport = None
+
+    def _get_ota_fragments(self, data, size):
+        result = []
+        fragment_idx = 0
+        frame_size = size - 1
+        total = len(data)
+        p = struct.pack("B", fragment_idx) + struct.pack('<I', total)
+        fragment_idx += 1
+        result.append(p)
+        for i in range(0, total, frame_size):
+            p = struct.pack("B", fragment_idx)
+            fragment_idx += 1
+            p += data[i:i+frame_size]
+            result.append(p)
+        return result
+
+    async def send_ota(self, destination, data)
+        async with self._request_lock:
+            for d in self._get_ota_fragments(data, 0xFFFF):
+                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, command="ota") / Raw(d)
+                self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
+                response = await self._send_recv(request)
+                if response.command != request.command:
+                    raise Exception("OTA to %s failed:", destination, response.show(dump=True))
+
+    async def broadcast_ota(self, destination, data, wait=1)
+        async with self._request_lock:
+            for d in self._get_ota_fragments(data, 0xFFFF):
+                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, command="ota") / Raw(d)
+                self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
+                await self._broadcast(request, wait)
 
     async def broadcast_cmd(self, command, data, wait=1):
         async with self._request_lock:

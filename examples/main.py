@@ -235,11 +235,17 @@ class MendeleevBridge:
                 raise TopicException("command %s is not valid for master" % (cmd))
         elif element == 0xFF:
             logger.debug("Broadcasting command %s", cmd)
-            await self.m.broadcast_cmd(cmd, msg.payload)
+            if cmd == "ota":
+                await self.m.broadcast_ota(msg.payload)
+            else:
+                await self.m.broadcast_cmd(cmd, msg.payload)
         else:
             logger.debug("Send command %s to %d...", cmd, element)
-            response = await self.m.send_cmd(element, cmd, msg.payload)
-            logger.debug("reponse for command %s to %d: %s", cmd, element, response)
+            if cmd == "ota":
+                await self.m.send_ota(element, msg.payload)
+            else:
+                response = await self.m.send_cmd(element, cmd, msg.payload)
+                logger.debug("reponse for command %s to %d: %s", cmd, element, response)
 
     async def main(self):
         self.disconnected = self.loop.create_future()
