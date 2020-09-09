@@ -15,7 +15,7 @@ class MendeleevProtocol(asyncio.Protocol):
     _PREAMBLE_LENGTH = 8
     _PREAMBLE_BYTE = b"\xA5"
     _HEADER_LENGTH = 7
-    _BAUD_RATE = 115200
+    _BAUD_RATE = 38400
 
     def __init__(self, url):
         super().__init__()
@@ -35,10 +35,9 @@ class MendeleevProtocol(asyncio.Protocol):
         self._buf += data
         while len(self._buf) > self._PREAMBLE_LENGTH + self._HEADER_LENGTH:
             if self._buf[:self._PREAMBLE_LENGTH] == (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH):
-
                 # TODO check the other things before we look at the length?
 
-                length = struct.unpack("<H", self._buf[13:15])[0]
+                length = struct.unpack(">H", self._buf[13:15])[0]
                 pkt_length = self._PREAMBLE_LENGTH + self._HEADER_LENGTH + length + 2
 
                 if pkt_length > len(self._buf):
@@ -48,12 +47,13 @@ class MendeleevProtocol(asyncio.Protocol):
                 pkt_bytes = self._buf[self._PREAMBLE_LENGTH:pkt_length]
                 try:
                     pkt = MendeleevHeader(pkt_bytes)
-                except:
+                except Exception as e:
                     logger.error("Invalid packet received")
-                    self._buf[pkt_length:]
+                    logger.exception(e)
+                    self._buf[self._PREAMBLE_LENGTH + pkt_length:]
                     continue
 
-                self._buf = self._buf[pkt_length:]
+                self._buf = self._buf[self._PREAMBLE_LENGTH + pkt_length:]
 
                 if not self._recv_future or \
                    self._recv_future.done() or \
@@ -81,7 +81,8 @@ class MendeleevProtocol(asyncio.Protocol):
         return await asyncio.wait_for(self._recv_future, timeout)
 
     async def _broadcast(self, pkt, wait=1):
-        self._transport.write(bytes(pkt))
+        with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
+        self._transport.write(with_preamble_bytes)
         await asyncio.sleep(wait)
 
     def connection_lost(self, exc: Exception):
@@ -148,34 +149,34 @@ class MendeleevProtocol(asyncio.Protocol):
             result.append(p)
         return result
 
-    async def send_ota(self, destination, data)
+    async def send_ota(self, destination, data):
         async with self._request_lock:
             for d in self._get_ota_fragments(data, 0xFFFF):
-                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, command="ota") / Raw(d)
+                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 response = await self._send_recv(request)
-                if response.command != request.command:
+                if response.cmd != request.cmd:
                     raise Exception("OTA to %s failed:", destination, response.show(dump=True))
 
-    async def broadcast_ota(self, destination, data, wait=1)
+    async def broadcast_ota(self, destination, data, wait=1):
         async with self._request_lock:
             for d in self._get_ota_fragments(data, 0xFFFF):
-                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, command="ota") / Raw(d)
+                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 await self._broadcast(request, wait)
 
     async def broadcast_cmd(self, command, data, wait=1):
         async with self._request_lock:
-            request = MendeleevHeader(sequence_nr=self._sequence_number, command=command) / Raw(data)
+            request = MendeleevHeader(sequence_nr=self._sequence_number, cmd=command) / Raw(data)
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
             await self._broadcast(request, wait)
 
     async def send_cmd(self, destination, command, data):
         async with self._request_lock:
-            request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, command=command) / Raw(data)
+            request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
             response = await self._send_recv(request)
-            if response.command == request.command:
+            if response.cmd == request.cmd:
                 return response.payload
             else:
                 raise Exception("Command %s to %s failed:", command, destination, response.show(dump=True))
