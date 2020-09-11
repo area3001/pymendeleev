@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 class MendeleevProtocol(asyncio.Protocol):
     _PREAMBLE_LENGTH = 8
     _PREAMBLE_BYTE = b"\xA5"
-    _HEADER_LENGTH = 7
+    _PACKET_OVERHEAD = 9
     _BAUD_RATE = 38400
 
     def __init__(self, url):
@@ -33,12 +33,12 @@ class MendeleevProtocol(asyncio.Protocol):
     def data_received(self, data: bytes):
         self._transport.pause_reading()
         self._buf += data
-        while len(self._buf) > self._PREAMBLE_LENGTH + self._HEADER_LENGTH:
+        while len(self._buf) > self._PREAMBLE_LENGTH + self._PACKET_OVERHEAD:
             if self._buf[:self._PREAMBLE_LENGTH] == (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH):
                 # TODO check the other things before we look at the length?
 
-                length = struct.unpack(">H", self._buf[13:15])[0]
-                pkt_length = self._PREAMBLE_LENGTH + self._HEADER_LENGTH + length + 2
+                data_len = struct.unpack(">H", self._buf[13:15])[0]
+                pkt_length = self._PREAMBLE_LENGTH + self._PACKET_OVERHEAD + data_len
 
                 if pkt_length > len(self._buf):
                     # not everything received yet
@@ -48,16 +48,17 @@ class MendeleevProtocol(asyncio.Protocol):
                 try:
                     pkt = MendeleevHeader(pkt_bytes)
                 except Exception as e:
-                    logger.error("Invalid packet received")
+                    logger.error("Invalid packet received:")
                     logger.exception(e)
-                    self._buf[self._PREAMBLE_LENGTH + pkt_length:]
+                    self._buf = self._buf[pkt_length:]
                     continue
 
-                self._buf = self._buf[self._PREAMBLE_LENGTH + pkt_length:]
+                self._buf = self._buf[pkt_length:]
 
                 if not self._recv_future or \
                    self._recv_future.done() or \
                    self._recv_future.cancelled():
+                    logger.warning("No future set for response")
                     continue
 
                 if pkt.answers(self._sent_pkt):
@@ -76,7 +77,7 @@ class MendeleevProtocol(asyncio.Protocol):
         self._recv_future = self._loop.create_future()
         with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
         logger.debug("sending %s", with_preamble_bytes)
-        # logger.debug("sending pkt %s" % str(with_preamble_bytes))
+        # logger.debug("sending %s", with_preamble_bytes)
         self._transport.write(with_preamble_bytes)
         return await asyncio.wait_for(self._recv_future, timeout)
 
