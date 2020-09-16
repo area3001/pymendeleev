@@ -204,7 +204,7 @@ class MendeleevHeader(Packet):
         ShortField("sequence_nr", None),
         ByteEnumField("cmd", 0, COMMANDS),
         ShortField("length", None),
-        XShortField("crc", None) # CRC-16/KERMIT
+        XShortField("crc", None)
     ]
 
     @staticmethod
@@ -244,7 +244,7 @@ class MendeleevHeader(Packet):
 
     def answers(self, other):
         if (self.destination == other.source) and \
-            ((self.cmd == other.cmd) or ((~self.cmd & 0xFF) == other.cmd)) and \
-            (self.sequence_nr == other.sequence_nr):
+           ((self.cmd == other.cmd) or ((~self.cmd & 0xFF) == other.cmd)) and \
+           (self.sequence_nr == other.sequence_nr):
             return 1
         return 0
