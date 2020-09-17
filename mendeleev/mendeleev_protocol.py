@@ -150,12 +150,12 @@ class MendeleevProtocol(asyncio.Protocol):
             result.append(p)
         return result
 
-    async def send_ota(self, destination, data):
+    async def send_ota(self, destination, data, timeout=3):
         async with self._request_lock:
             for d in self._get_ota_fragments(data, 240-9-8):
                 request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
-                response = await self._send_recv(request)
+                response = await self._send_recv(request, timeout)
                 if response.cmd != request.cmd:
                     raise Exception("OTA to %s failed:", destination, response.show(dump=True))
 
@@ -172,11 +172,11 @@ class MendeleevProtocol(asyncio.Protocol):
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
             await self._broadcast(request, wait)
 
-    async def send_cmd(self, destination, command, data):
+    async def send_cmd(self, destination, command, data, timeout=3):
         async with self._request_lock:
             request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
-            response = await self._send_recv(request)
+            response = await self._send_recv(request, timeout)
             if response.cmd == request.cmd:
                 return response.payload
             else:
