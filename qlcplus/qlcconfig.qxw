@@ -1,0 +1,1468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Workspace>
+<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="FunctionManager">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>Bert Outtier</Author>
+ </Creator>
+ <Engine>
+  <InputOutputMap>
+   <Universe Name="Universe 1" ID="0">
+    <Output Plugin="ArtNet" UID="192.168.10.185" Line="2"/>
+   </Universe>
+   <Universe Name="Universe 2" ID="1">
+    <Output Plugin="ArtNet" UID="192.168.10.185" Line="2"/>
+   </Universe>
+   <Universe Name="Universe 3" ID="2"/>
+   <Universe Name="Universe 4" ID="3"/>
+  </InputOutputMap>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>0</ID>
+   <Name>ELEMENT_H (#01)</Name>
+   <Universe>0</Universe>
+   <Address>0</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>1</ID>
+   <Name>ELEMENT_He (#02)</Name>
+   <Universe>0</Universe>
+   <Address>7</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>2</ID>
+   <Name>ELEMENT_Li (#03)</Name>
+   <Universe>0</Universe>
+   <Address>14</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>3</ID>
+   <Name>ELEMENT_Be (#04)</Name>
+   <Universe>0</Universe>
+   <Address>21</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>4</ID>
+   <Name>ELEMENT_B (#05)</Name>
+   <Universe>0</Universe>
+   <Address>28</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>5</ID>
+   <Name>ELEMENT_C (#06)</Name>
+   <Universe>0</Universe>
+   <Address>35</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>6</ID>
+   <Name>ELEMENT_N (#07)</Name>
+   <Universe>0</Universe>
+   <Address>42</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>7</ID>
+   <Name>ELEMENT_O (#08)</Name>
+   <Universe>0</Universe>
+   <Address>49</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>8</ID>
+   <Name>ELEMENT_F (#09)</Name>
+   <Universe>0</Universe>
+   <Address>56</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>9</ID>
+   <Name>ELEMENT_Ne (#10)</Name>
+   <Universe>0</Universe>
+   <Address>63</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>10</ID>
+   <Name>ELEMENT_Na (#11)</Name>
+   <Universe>0</Universe>
+   <Address>70</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>11</ID>
+   <Name>ELEMENT_Mg (#12)</Name>
+   <Universe>0</Universe>
+   <Address>77</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>12</ID>
+   <Name>ELEMENT_Al (#13)</Name>
+   <Universe>0</Universe>
+   <Address>84</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>13</ID>
+   <Name>ELEMENT_Si (#14)</Name>
+   <Universe>0</Universe>
+   <Address>91</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>14</ID>
+   <Name>ELEMENT_P (#15)</Name>
+   <Universe>0</Universe>
+   <Address>98</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>15</ID>
+   <Name>ELEMENT_S (#16)</Name>
+   <Universe>0</Universe>
+   <Address>105</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>16</ID>
+   <Name>ELEMENT_Cl (#17)</Name>
+   <Universe>0</Universe>
+   <Address>112</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>17</ID>
+   <Name>ELEMENT_Ar (#18)</Name>
+   <Universe>0</Universe>
+   <Address>119</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>18</ID>
+   <Name>ELEMENT_K (#19)</Name>
+   <Universe>0</Universe>
+   <Address>126</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>19</ID>
+   <Name>ELEMENT_Ca (#20)</Name>
+   <Universe>0</Universe>
+   <Address>133</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>20</ID>
+   <Name>ELEMENT_Sc (#21)</Name>
+   <Universe>0</Universe>
+   <Address>140</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>21</ID>
+   <Name>ELEMENT_Ti (#22)</Name>
+   <Universe>0</Universe>
+   <Address>147</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>22</ID>
+   <Name>ELEMENT_V (#23)</Name>
+   <Universe>0</Universe>
+   <Address>154</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>23</ID>
+   <Name>ELEMENT_Cr (#24)</Name>
+   <Universe>0</Universe>
+   <Address>161</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>24</ID>
+   <Name>ELEMENT_Mn (#25)</Name>
+   <Universe>0</Universe>
+   <Address>168</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>25</ID>
+   <Name>ELEMENT_Fe (#26)</Name>
+   <Universe>0</Universe>
+   <Address>175</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>26</ID>
+   <Name>ELEMENT_Co (#27)</Name>
+   <Universe>0</Universe>
+   <Address>182</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>27</ID>
+   <Name>ELEMENT_Ni (#28)</Name>
+   <Universe>0</Universe>
+   <Address>189</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>28</ID>
+   <Name>ELEMENT_Cu (#29)</Name>
+   <Universe>0</Universe>
+   <Address>196</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>29</ID>
+   <Name>ELEMENT_Zn (#30)</Name>
+   <Universe>0</Universe>
+   <Address>203</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>30</ID>
+   <Name>ELEMENT_Ga (#31)</Name>
+   <Universe>0</Universe>
+   <Address>210</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>31</ID>
+   <Name>ELEMENT_Ge (#32)</Name>
+   <Universe>0</Universe>
+   <Address>217</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>32</ID>
+   <Name>ELEMENT_As (#33)</Name>
+   <Universe>0</Universe>
+   <Address>224</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>33</ID>
+   <Name>ELEMENT_Se (#34)</Name>
+   <Universe>0</Universe>
+   <Address>231</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>34</ID>
+   <Name>ELEMENT_Br (#35)</Name>
+   <Universe>0</Universe>
+   <Address>238</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>35</ID>
+   <Name>ELEMENT_Kr (#36)</Name>
+   <Universe>0</Universe>
+   <Address>245</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>36</ID>
+   <Name>ELEMENT_Rb (#37)</Name>
+   <Universe>0</Universe>
+   <Address>252</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>37</ID>
+   <Name>ELEMENT_Sr (#38)</Name>
+   <Universe>0</Universe>
+   <Address>259</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>38</ID>
+   <Name>ELEMENT_Y (#39)</Name>
+   <Universe>0</Universe>
+   <Address>266</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>39</ID>
+   <Name>ELEMENT_Zr (#40)</Name>
+   <Universe>0</Universe>
+   <Address>273</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>40</ID>
+   <Name>ELEMENT_Nb (#41)</Name>
+   <Universe>0</Universe>
+   <Address>280</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>41</ID>
+   <Name>ELEMENT_Mo (#42)</Name>
+   <Universe>0</Universe>
+   <Address>287</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>42</ID>
+   <Name>ELEMENT_Tc (#43)</Name>
+   <Universe>0</Universe>
+   <Address>294</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>43</ID>
+   <Name>ELEMENT_Ru (#44)</Name>
+   <Universe>0</Universe>
+   <Address>301</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>44</ID>
+   <Name>ELEMENT_Rh (#45)</Name>
+   <Universe>0</Universe>
+   <Address>308</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>45</ID>
+   <Name>ELEMENT_Pd (#46)</Name>
+   <Universe>0</Universe>
+   <Address>315</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>46</ID>
+   <Name>ELEMENT_Ag (#47)</Name>
+   <Universe>0</Universe>
+   <Address>322</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>47</ID>
+   <Name>ELEMENT_Cd (#48)</Name>
+   <Universe>0</Universe>
+   <Address>329</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>48</ID>
+   <Name>ELEMENT_In (#49)</Name>
+   <Universe>0</Universe>
+   <Address>336</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>49</ID>
+   <Name>ELEMENT_Sn (#50)</Name>
+   <Universe>0</Universe>
+   <Address>343</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>50</ID>
+   <Name>ELEMENT_Sb (#51)</Name>
+   <Universe>0</Universe>
+   <Address>350</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>51</ID>
+   <Name>ELEMENT_Te (#52)</Name>
+   <Universe>0</Universe>
+   <Address>357</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>52</ID>
+   <Name>ELEMENT_I (#53)</Name>
+   <Universe>0</Universe>
+   <Address>364</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>53</ID>
+   <Name>ELEMENT_Xe (#54)</Name>
+   <Universe>0</Universe>
+   <Address>371</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>54</ID>
+   <Name>ELEMENT_Cs (#55)</Name>
+   <Universe>0</Universe>
+   <Address>378</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>55</ID>
+   <Name>ELEMENT_Ba (#56)</Name>
+   <Universe>0</Universe>
+   <Address>385</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>56</ID>
+   <Name>ELEMENT_La (#57)</Name>
+   <Universe>0</Universe>
+   <Address>392</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>57</ID>
+   <Name>ELEMENT_Ce (#58)</Name>
+   <Universe>0</Universe>
+   <Address>399</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>58</ID>
+   <Name>ELEMENT_Pr (#59)</Name>
+   <Universe>0</Universe>
+   <Address>406</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>59</ID>
+   <Name>ELEMENT_Nd (#60)</Name>
+   <Universe>0</Universe>
+   <Address>413</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>60</ID>
+   <Name>ELEMENT_Pm (#61)</Name>
+   <Universe>0</Universe>
+   <Address>420</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>61</ID>
+   <Name>ELEMENT_Sm (#62)</Name>
+   <Universe>0</Universe>
+   <Address>427</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>62</ID>
+   <Name>ELEMENT_Eu (#63)</Name>
+   <Universe>0</Universe>
+   <Address>434</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>63</ID>
+   <Name>ELEMENT_Gd (#64)</Name>
+   <Universe>0</Universe>
+   <Address>441</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>64</ID>
+   <Name>ELEMENT_Tb (#65)</Name>
+   <Universe>0</Universe>
+   <Address>448</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>65</ID>
+   <Name>ELEMENT_Dy (#66)</Name>
+   <Universe>0</Universe>
+   <Address>455</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>66</ID>
+   <Name>ELEMENT_Ho (#67)</Name>
+   <Universe>0</Universe>
+   <Address>462</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>67</ID>
+   <Name>ELEMENT_Er (#68)</Name>
+   <Universe>0</Universe>
+   <Address>469</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>68</ID>
+   <Name>ELEMENT_Tm (#69)</Name>
+   <Universe>0</Universe>
+   <Address>476</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>69</ID>
+   <Name>ELEMENT_Yb (#70)</Name>
+   <Universe>0</Universe>
+   <Address>483</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>70</ID>
+   <Name>ELEMENT_W (#74)</Name>
+   <Universe>1</Universe>
+   <Address>0</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>71</ID>
+   <Name>ELEMENT_Re (#75)</Name>
+   <Universe>1</Universe>
+   <Address>7</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>72</ID>
+   <Name>ELEMENT_Os (#76)</Name>
+   <Universe>1</Universe>
+   <Address>14</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>73</ID>
+   <Name>ELEMENT_Ir (#77)</Name>
+   <Universe>1</Universe>
+   <Address>21</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>74</ID>
+   <Name>ELEMENT_Pt (#78)</Name>
+   <Universe>1</Universe>
+   <Address>28</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>75</ID>
+   <Name>ELEMENT_Au (#79)</Name>
+   <Universe>1</Universe>
+   <Address>35</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>76</ID>
+   <Name>ELEMENT_Hg (#80)</Name>
+   <Universe>1</Universe>
+   <Address>42</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>77</ID>
+   <Name>ELEMENT_Tl (#81)</Name>
+   <Universe>1</Universe>
+   <Address>49</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>78</ID>
+   <Name>ELEMENT_Pb (#82)</Name>
+   <Universe>1</Universe>
+   <Address>56</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>79</ID>
+   <Name>ELEMENT_Bi (#83)</Name>
+   <Universe>1</Universe>
+   <Address>63</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>80</ID>
+   <Name>ELEMENT_Po (#84)</Name>
+   <Universe>1</Universe>
+   <Address>70</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>81</ID>
+   <Name>ELEMENT_At (#85)</Name>
+   <Universe>1</Universe>
+   <Address>77</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>82</ID>
+   <Name>ELEMENT_Rn (#86)</Name>
+   <Universe>1</Universe>
+   <Address>84</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>83</ID>
+   <Name>ELEMENT_Fr (#87)</Name>
+   <Universe>1</Universe>
+   <Address>91</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>84</ID>
+   <Name>ELEMENT_Ra (#88)</Name>
+   <Universe>1</Universe>
+   <Address>98</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>85</ID>
+   <Name>ELEMENT_Ac (#89)</Name>
+   <Universe>1</Universe>
+   <Address>105</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>86</ID>
+   <Name>ELEMENT_Th (#90)</Name>
+   <Universe>1</Universe>
+   <Address>112</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>87</ID>
+   <Name>ELEMENT_Pa (#91)</Name>
+   <Universe>1</Universe>
+   <Address>119</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>88</ID>
+   <Name>ELEMENT_U (#92)</Name>
+   <Universe>1</Universe>
+   <Address>126</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>89</ID>
+   <Name>ELEMENT_Np (#93)</Name>
+   <Universe>1</Universe>
+   <Address>133</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>90</ID>
+   <Name>ELEMENT_Pu (#94)</Name>
+   <Universe>1</Universe>
+   <Address>140</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>91</ID>
+   <Name>ELEMENT_Am (#95)</Name>
+   <Universe>1</Universe>
+   <Address>147</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>92</ID>
+   <Name>ELEMENT_Cm (#96)</Name>
+   <Universe>1</Universe>
+   <Address>154</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>93</ID>
+   <Name>ELEMENT_Bk (#97)</Name>
+   <Universe>1</Universe>
+   <Address>161</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>94</ID>
+   <Name>ELEMENT_Cf (#98)</Name>
+   <Universe>1</Universe>
+   <Address>168</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>95</ID>
+   <Name>ELEMENT_Es (#99)</Name>
+   <Universe>1</Universe>
+   <Address>175</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>96</ID>
+   <Name>ELEMENT_Fm (#100)</Name>
+   <Universe>1</Universe>
+   <Address>182</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>97</ID>
+   <Name>ELEMENT_Md (#101)</Name>
+   <Universe>1</Universe>
+   <Address>189</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>98</ID>
+   <Name>ELEMENT_No (#102)</Name>
+   <Universe>1</Universe>
+   <Address>196</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>99</ID>
+   <Name>ELEMENT_Lr (#103)</Name>
+   <Universe>1</Universe>
+   <Address>203</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>100</ID>
+   <Name>ELEMENT_Rf (#104)</Name>
+   <Universe>1</Universe>
+   <Address>210</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>101</ID>
+   <Name>ELEMENT_Db (#105)</Name>
+   <Universe>1</Universe>
+   <Address>217</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>102</ID>
+   <Name>ELEMENT_Sg (#106)</Name>
+   <Universe>1</Universe>
+   <Address>224</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>103</ID>
+   <Name>ELEMENT_Bh (#107)</Name>
+   <Universe>1</Universe>
+   <Address>231</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>104</ID>
+   <Name>ELEMENT_Hs (#108)</Name>
+   <Universe>1</Universe>
+   <Address>238</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>105</ID>
+   <Name>ELEMENT_Mt (#109)</Name>
+   <Universe>1</Universe>
+   <Address>245</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>106</ID>
+   <Name>ELEMENT_Ds (#110)</Name>
+   <Universe>1</Universe>
+   <Address>252</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>107</ID>
+   <Name>ELEMENT_Rg (#111)</Name>
+   <Universe>1</Universe>
+   <Address>259</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>108</ID>
+   <Name>ELEMENT_Cp (#112)</Name>
+   <Universe>1</Universe>
+   <Address>266</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>109</ID>
+   <Name>ELEMENT_Nh (#113)</Name>
+   <Universe>1</Universe>
+   <Address>273</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>110</ID>
+   <Name>ELEMENT_Fl (#114)</Name>
+   <Universe>1</Universe>
+   <Address>280</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>111</ID>
+   <Name>ELEMENT_Mc (#115)</Name>
+   <Universe>1</Universe>
+   <Address>287</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>112</ID>
+   <Name>ELEMENT_Lv (#116)</Name>
+   <Universe>1</Universe>
+   <Address>294</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>113</ID>
+   <Name>ELEMENT_Ts (#117)</Name>
+   <Universe>1</Universe>
+   <Address>301</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>114</ID>
+   <Name>ELEMENT_Og (#118)</Name>
+   <Universe>1</Universe>
+   <Address>308</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>211</ID>
+   <Name>ELEMENT_Lu (#71)</Name>
+   <Universe>0</Universe>
+   <Address>490</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>212</ID>
+   <Name>ELEMENT_Hf (#72)</Name>
+   <Universe>0</Universe>
+   <Address>497</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <Fixture>
+   <Manufacturer>Mendeleev</Manufacturer>
+   <Model>v001</Model>
+   <Mode>mode1</Mode>
+   <ID>213</ID>
+   <Name>ELEMENT_Ta (#73)</Name>
+   <Universe>0</Universe>
+   <Address>504</Address>
+   <Channels>7</Channels>
+  </Fixture>
+  <FixtureGroup ID="1">
+   <Name>lichtkrant</Name>
+   <Size X="14" Y="6"/>
+   <Head X="0" Y="0" Fixture="20">0</Head>
+   <Head X="1" Y="0" Fixture="21">0</Head>
+   <Head X="2" Y="0" Fixture="22">0</Head>
+   <Head X="3" Y="0" Fixture="23">0</Head>
+   <Head X="4" Y="0" Fixture="24">0</Head>
+   <Head X="5" Y="0" Fixture="25">0</Head>
+   <Head X="6" Y="0" Fixture="26">0</Head>
+   <Head X="7" Y="0" Fixture="27">0</Head>
+   <Head X="8" Y="0" Fixture="28">0</Head>
+   <Head X="9" Y="0" Fixture="29">0</Head>
+   <Head X="10" Y="0" Fixture="30">0</Head>
+   <Head X="11" Y="0" Fixture="31">0</Head>
+   <Head X="12" Y="0" Fixture="32">0</Head>
+   <Head X="13" Y="0" Fixture="33">0</Head>
+   <Head X="0" Y="1" Fixture="38">0</Head>
+   <Head X="1" Y="1" Fixture="39">0</Head>
+   <Head X="2" Y="1" Fixture="40">0</Head>
+   <Head X="3" Y="1" Fixture="41">0</Head>
+   <Head X="4" Y="1" Fixture="42">0</Head>
+   <Head X="5" Y="1" Fixture="43">0</Head>
+   <Head X="6" Y="1" Fixture="44">0</Head>
+   <Head X="7" Y="1" Fixture="45">0</Head>
+   <Head X="8" Y="1" Fixture="46">0</Head>
+   <Head X="9" Y="1" Fixture="47">0</Head>
+   <Head X="10" Y="1" Fixture="48">0</Head>
+   <Head X="11" Y="1" Fixture="49">0</Head>
+   <Head X="12" Y="1" Fixture="50">0</Head>
+   <Head X="13" Y="1" Fixture="51">0</Head>
+   <Head X="0" Y="2" Fixture="211">0</Head>
+   <Head X="1" Y="2" Fixture="212">0</Head>
+   <Head X="2" Y="2" Fixture="213">0</Head>
+   <Head X="3" Y="2" Fixture="70">0</Head>
+   <Head X="4" Y="2" Fixture="71">0</Head>
+   <Head X="5" Y="2" Fixture="72">0</Head>
+   <Head X="6" Y="2" Fixture="73">0</Head>
+   <Head X="7" Y="2" Fixture="74">0</Head>
+   <Head X="8" Y="2" Fixture="75">0</Head>
+   <Head X="9" Y="2" Fixture="76">0</Head>
+   <Head X="10" Y="2" Fixture="77">0</Head>
+   <Head X="11" Y="2" Fixture="78">0</Head>
+   <Head X="12" Y="2" Fixture="79">0</Head>
+   <Head X="13" Y="2" Fixture="80">0</Head>
+   <Head X="0" Y="3" Fixture="99">0</Head>
+   <Head X="1" Y="3" Fixture="100">0</Head>
+   <Head X="2" Y="3" Fixture="101">0</Head>
+   <Head X="3" Y="3" Fixture="102">0</Head>
+   <Head X="4" Y="3" Fixture="103">0</Head>
+   <Head X="5" Y="3" Fixture="104">0</Head>
+   <Head X="6" Y="3" Fixture="105">0</Head>
+   <Head X="7" Y="3" Fixture="106">0</Head>
+   <Head X="8" Y="3" Fixture="107">0</Head>
+   <Head X="9" Y="3" Fixture="108">0</Head>
+   <Head X="10" Y="3" Fixture="109">0</Head>
+   <Head X="11" Y="3" Fixture="110">0</Head>
+   <Head X="12" Y="3" Fixture="111">0</Head>
+   <Head X="13" Y="3" Fixture="112">0</Head>
+   <Head X="0" Y="4" Fixture="56">0</Head>
+   <Head X="1" Y="4" Fixture="57">0</Head>
+   <Head X="2" Y="4" Fixture="58">0</Head>
+   <Head X="3" Y="4" Fixture="59">0</Head>
+   <Head X="4" Y="4" Fixture="60">0</Head>
+   <Head X="5" Y="4" Fixture="61">0</Head>
+   <Head X="6" Y="4" Fixture="62">0</Head>
+   <Head X="7" Y="4" Fixture="63">0</Head>
+   <Head X="8" Y="4" Fixture="64">0</Head>
+   <Head X="9" Y="4" Fixture="65">0</Head>
+   <Head X="10" Y="4" Fixture="66">0</Head>
+   <Head X="11" Y="4" Fixture="67">0</Head>
+   <Head X="12" Y="4" Fixture="68">0</Head>
+   <Head X="13" Y="4" Fixture="69">0</Head>
+   <Head X="0" Y="5" Fixture="85">0</Head>
+   <Head X="1" Y="5" Fixture="86">0</Head>
+   <Head X="2" Y="5" Fixture="87">0</Head>
+   <Head X="3" Y="5" Fixture="88">0</Head>
+   <Head X="4" Y="5" Fixture="89">0</Head>
+   <Head X="5" Y="5" Fixture="90">0</Head>
+   <Head X="6" Y="5" Fixture="91">0</Head>
+   <Head X="7" Y="5" Fixture="92">0</Head>
+   <Head X="8" Y="5" Fixture="93">0</Head>
+   <Head X="9" Y="5" Fixture="94">0</Head>
+   <Head X="10" Y="5" Fixture="95">0</Head>
+   <Head X="11" Y="5" Fixture="96">0</Head>
+   <Head X="12" Y="5" Fixture="97">0</Head>
+   <Head X="13" Y="5" Fixture="98">0</Head>
+  </FixtureGroup>
+  <FixtureGroup ID="2">
+   <Name>tabel</Name>
+   <Size X="18" Y="9"/>
+   <Head X="0" Y="0" Fixture="0">0</Head>
+   <Head X="17" Y="0" Fixture="1">0</Head>
+   <Head X="0" Y="1" Fixture="2">0</Head>
+   <Head X="1" Y="1" Fixture="3">0</Head>
+   <Head X="12" Y="1" Fixture="4">0</Head>
+   <Head X="13" Y="1" Fixture="5">0</Head>
+   <Head X="14" Y="1" Fixture="6">0</Head>
+   <Head X="15" Y="1" Fixture="7">0</Head>
+   <Head X="16" Y="1" Fixture="8">0</Head>
+   <Head X="17" Y="1" Fixture="9">0</Head>
+   <Head X="0" Y="2" Fixture="10">0</Head>
+   <Head X="1" Y="2" Fixture="11">0</Head>
+   <Head X="12" Y="2" Fixture="12">0</Head>
+   <Head X="13" Y="2" Fixture="13">0</Head>
+   <Head X="14" Y="2" Fixture="14">0</Head>
+   <Head X="15" Y="2" Fixture="15">0</Head>
+   <Head X="16" Y="2" Fixture="16">0</Head>
+   <Head X="17" Y="2" Fixture="17">0</Head>
+   <Head X="0" Y="3" Fixture="18">0</Head>
+   <Head X="1" Y="3" Fixture="19">0</Head>
+   <Head X="2" Y="3" Fixture="20">0</Head>
+   <Head X="3" Y="3" Fixture="21">0</Head>
+   <Head X="4" Y="3" Fixture="22">0</Head>
+   <Head X="5" Y="3" Fixture="23">0</Head>
+   <Head X="6" Y="3" Fixture="24">0</Head>
+   <Head X="7" Y="3" Fixture="25">0</Head>
+   <Head X="8" Y="3" Fixture="26">0</Head>
+   <Head X="9" Y="3" Fixture="27">0</Head>
+   <Head X="10" Y="3" Fixture="28">0</Head>
+   <Head X="11" Y="3" Fixture="29">0</Head>
+   <Head X="12" Y="3" Fixture="30">0</Head>
+   <Head X="13" Y="3" Fixture="31">0</Head>
+   <Head X="14" Y="3" Fixture="32">0</Head>
+   <Head X="15" Y="3" Fixture="33">0</Head>
+   <Head X="16" Y="3" Fixture="34">0</Head>
+   <Head X="17" Y="3" Fixture="35">0</Head>
+   <Head X="0" Y="4" Fixture="36">0</Head>
+   <Head X="1" Y="4" Fixture="37">0</Head>
+   <Head X="2" Y="4" Fixture="38">0</Head>
+   <Head X="3" Y="4" Fixture="39">0</Head>
+   <Head X="4" Y="4" Fixture="40">0</Head>
+   <Head X="5" Y="4" Fixture="41">0</Head>
+   <Head X="6" Y="4" Fixture="42">0</Head>
+   <Head X="7" Y="4" Fixture="43">0</Head>
+   <Head X="8" Y="4" Fixture="44">0</Head>
+   <Head X="9" Y="4" Fixture="45">0</Head>
+   <Head X="10" Y="4" Fixture="46">0</Head>
+   <Head X="11" Y="4" Fixture="47">0</Head>
+   <Head X="12" Y="4" Fixture="48">0</Head>
+   <Head X="13" Y="4" Fixture="49">0</Head>
+   <Head X="14" Y="4" Fixture="50">0</Head>
+   <Head X="15" Y="4" Fixture="51">0</Head>
+   <Head X="16" Y="4" Fixture="52">0</Head>
+   <Head X="17" Y="4" Fixture="53">0</Head>
+   <Head X="0" Y="5" Fixture="54">0</Head>
+   <Head X="1" Y="5" Fixture="55">0</Head>
+   <Head X="2" Y="5" Fixture="211">0</Head>
+   <Head X="3" Y="5" Fixture="212">0</Head>
+   <Head X="4" Y="5" Fixture="213">0</Head>
+   <Head X="5" Y="5" Fixture="70">0</Head>
+   <Head X="6" Y="5" Fixture="71">0</Head>
+   <Head X="7" Y="5" Fixture="72">0</Head>
+   <Head X="8" Y="5" Fixture="73">0</Head>
+   <Head X="9" Y="5" Fixture="74">0</Head>
+   <Head X="10" Y="5" Fixture="75">0</Head>
+   <Head X="11" Y="5" Fixture="76">0</Head>
+   <Head X="12" Y="5" Fixture="77">0</Head>
+   <Head X="13" Y="5" Fixture="78">0</Head>
+   <Head X="14" Y="5" Fixture="79">0</Head>
+   <Head X="15" Y="5" Fixture="80">0</Head>
+   <Head X="16" Y="5" Fixture="81">0</Head>
+   <Head X="17" Y="5" Fixture="82">0</Head>
+   <Head X="0" Y="6" Fixture="83">0</Head>
+   <Head X="1" Y="6" Fixture="84">0</Head>
+   <Head X="2" Y="6" Fixture="99">0</Head>
+   <Head X="3" Y="6" Fixture="100">0</Head>
+   <Head X="4" Y="6" Fixture="101">0</Head>
+   <Head X="5" Y="6" Fixture="102">0</Head>
+   <Head X="6" Y="6" Fixture="103">0</Head>
+   <Head X="7" Y="6" Fixture="104">0</Head>
+   <Head X="8" Y="6" Fixture="105">0</Head>
+   <Head X="9" Y="6" Fixture="106">0</Head>
+   <Head X="10" Y="6" Fixture="107">0</Head>
+   <Head X="11" Y="6" Fixture="108">0</Head>
+   <Head X="12" Y="6" Fixture="109">0</Head>
+   <Head X="13" Y="6" Fixture="110">0</Head>
+   <Head X="14" Y="6" Fixture="111">0</Head>
+   <Head X="15" Y="6" Fixture="112">0</Head>
+   <Head X="16" Y="6" Fixture="113">0</Head>
+   <Head X="17" Y="6" Fixture="114">0</Head>
+   <Head X="2" Y="7" Fixture="56">0</Head>
+   <Head X="3" Y="7" Fixture="57">0</Head>
+   <Head X="4" Y="7" Fixture="58">0</Head>
+   <Head X="5" Y="7" Fixture="59">0</Head>
+   <Head X="6" Y="7" Fixture="60">0</Head>
+   <Head X="7" Y="7" Fixture="61">0</Head>
+   <Head X="8" Y="7" Fixture="62">0</Head>
+   <Head X="9" Y="7" Fixture="63">0</Head>
+   <Head X="10" Y="7" Fixture="64">0</Head>
+   <Head X="11" Y="7" Fixture="65">0</Head>
+   <Head X="12" Y="7" Fixture="66">0</Head>
+   <Head X="13" Y="7" Fixture="67">0</Head>
+   <Head X="14" Y="7" Fixture="68">0</Head>
+   <Head X="15" Y="7" Fixture="69">0</Head>
+   <Head X="2" Y="8" Fixture="85">0</Head>
+   <Head X="3" Y="8" Fixture="86">0</Head>
+   <Head X="4" Y="8" Fixture="87">0</Head>
+   <Head X="5" Y="8" Fixture="88">0</Head>
+   <Head X="6" Y="8" Fixture="89">0</Head>
+   <Head X="7" Y="8" Fixture="90">0</Head>
+   <Head X="8" Y="8" Fixture="91">0</Head>
+   <Head X="9" Y="8" Fixture="92">0</Head>
+   <Head X="10" Y="8" Fixture="93">0</Head>
+   <Head X="11" Y="8" Fixture="94">0</Head>
+   <Head X="12" Y="8" Fixture="95">0</Head>
+   <Head X="13" Y="8" Fixture="96">0</Head>
+   <Head X="14" Y="8" Fixture="97">0</Head>
+   <Head X="15" Y="8" Fixture="98">0</Head>
+  </FixtureGroup>
+  <ChannelsGroup ID="0" Name="Red" Value="0">0,0,1,0,2,0,3,0,4,0,5,0,6,0,7,0,8,0,9,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0,19,0,20,0,21,0,22,0,23,0,24,0,25,0,26,0,27,0,28,0,29,0,30,0,31,0,32,0,33,0,34,0,35,0,36,0,37,0,38,0,39,0,40,0,41,0,42,0,43,0,44,0,45,0,46,0,47,0,48,0,49,0,50,0,51,0,52,0,53,0,54,0,55,0,56,0,57,0,58,0,59,0,60,0,61,0,62,0,63,0,64,0,65,0,66,0,67,0,68,0,69,0,211,0,212,0,213,0,70,0,71,0,72,0,73,0,74,0,75,0,76,0,77,0,78,0,79,0,80,0,81,0,82,0,83,0,84,0,85,0,86,0,87,0,88,0,89,0,90,0,91,0,92,0,93,0,94,0,95,0,96,0,97,0,98,0,99,0,100,0,101,0,102,0,103,0,104,0,105,0,106,0,107,0,108,0,109,0,110,0,111,0,112,0,113,0,114,0</ChannelsGroup>
+  <ChannelsGroup ID="1" Name="Green" Value="0">0,1,1,1,2,1,3,1,4,1,5,1,6,1,7,1,8,1,9,1,10,1,11,1,12,1,13,1,14,1,15,1,16,1,17,1,18,1,19,1,20,1,21,1,22,1,23,1,24,1,25,1,26,1,27,1,28,1,29,1,30,1,31,1,32,1,33,1,34,1,35,1,36,1,37,1,38,1,39,1,40,1,41,1,42,1,43,1,44,1,45,1,46,1,47,1,48,1,49,1,50,1,51,1,52,1,53,1,54,1,55,1,56,1,57,1,58,1,59,1,60,1,61,1,62,1,63,1,64,1,65,1,66,1,67,1,68,1,69,1,211,1,212,1,213,1,70,1,71,1,72,1,73,1,74,1,75,1,76,1,77,1,78,1,79,1,80,1,81,1,82,1,83,1,84,1,85,1,86,1,87,1,88,1,89,1,90,1,91,1,92,1,93,1,94,1,95,1,96,1,97,1,98,1,99,1,100,1,101,1,102,1,103,1,104,1,105,1,106,1,107,1,108,1,109,1,110,1,111,1,112,1,113,1,114,1</ChannelsGroup>
+  <ChannelsGroup ID="2" Name="Blue" Value="0">0,2,1,2,2,2,3,2,4,2,5,2,6,2,7,2,8,2,9,2,10,2,11,2,12,2,13,2,14,2,15,2,16,2,17,2,18,2,19,2,20,2,21,2,22,2,23,2,24,2,25,2,26,2,27,2,28,2,29,2,30,2,31,2,32,2,33,2,34,2,35,2,36,2,37,2,38,2,39,2,40,2,41,2,42,2,43,2,44,2,45,2,46,2,47,2,48,2,49,2,50,2,51,2,52,2,53,2,54,2,55,2,56,2,57,2,58,2,59,2,60,2,61,2,62,2,63,2,64,2,65,2,66,2,67,2,68,2,69,2,211,2,212,2,213,2,70,2,71,2,72,2,73,2,74,2,75,2,76,2,77,2,78,2,79,2,80,2,81,2,82,2,83,2,84,2,85,2,86,2,87,2,88,2,89,2,90,2,91,2,92,2,93,2,94,2,95,2,96,2,97,2,98,2,99,2,100,2,101,2,102,2,103,2,104,2,105,2,106,2,107,2,108,2,109,2,110,2,111,2,112,2,113,2,114,2</ChannelsGroup>
+  <ChannelsGroup ID="3" Name="Alpha" Value="0">0,3,1,3,2,3,3,3,4,3,5,3,6,3,7,3,8,3,9,3,10,3,11,3,12,3,13,3,14,3,15,3,16,3,17,3,18,3,19,3,20,3,21,3,22,3,23,3,24,3,25,3,26,3,27,3,28,3,29,3,30,3,31,3,32,3,33,3,34,3,35,3,36,3,37,3,38,3,39,3,40,3,41,3,42,3,43,3,44,3,45,3,46,3,47,3,48,3,49,3,50,3,51,3,52,3,53,3,54,3,55,3,56,3,57,3,58,3,59,3,60,3,61,3,62,3,63,3,64,3,65,3,66,3,67,3,68,3,69,3,211,3,212,3,213,3,70,3,71,3,72,3,73,3,74,3,75,3,76,3,77,3,78,3,79,3,80,3,81,3,82,3,83,3,84,3,85,3,86,3,87,3,88,3,89,3,90,3,91,3,92,3,93,3,94,3,95,3,96,3,97,3,98,3,99,3,100,3,101,3,102,3,103,3,104,3,105,3,106,3,107,3,108,3,109,3,110,3,111,3,112,3,113,3,114,3</ChannelsGroup>
+  <ChannelsGroup ID="4" Name="White" Value="0">0,4,1,4,2,4,3,4,4,4,5,4,6,4,7,4,8,4,9,4,10,4,11,4,12,4,13,4,14,4,15,4,16,4,17,4,18,4,19,4,20,4,21,4,22,4,23,4,24,4,25,4,26,4,27,4,28,4,29,4,30,4,31,4,32,4,33,4,34,4,35,4,36,4,37,4,38,4,39,4,40,4,41,4,42,4,43,4,44,4,45,4,46,4,47,4,48,4,49,4,50,4,51,4,52,4,53,4,54,4,55,4,56,4,57,4,58,4,59,4,60,4,61,4,62,4,63,4,64,4,65,4,66,4,67,4,68,4,69,4,211,4,212,4,213,4,70,4,71,4,72,4,73,4,74,4,75,4,76,4,77,4,78,4,79,4,80,4,81,4,82,4,83,4,84,4,85,4,86,4,87,4,88,4,89,4,90,4,91,4,92,4,93,4,94,4,95,4,96,4,97,4,98,4,99,4,100,4,101,4,102,4,103,4,104,4,105,4,106,4,107,4,108,4,109,4,110,4,111,4,112,4,113,4,114,4</ChannelsGroup>
+  <ChannelsGroup ID="5" Name="UV" Value="0">0,5,1,5,2,5,3,5,4,5,5,5,6,5,7,5,8,5,9,5,10,5,11,5,12,5,13,5,14,5,15,5,16,5,17,5,18,5,19,5,20,5,21,5,22,5,23,5,24,5,25,5,26,5,27,5,28,5,29,5,30,5,31,5,32,5,33,5,34,5,35,5,36,5,37,5,38,5,39,5,40,5,41,5,42,5,43,5,44,5,45,5,46,5,47,5,48,5,49,5,50,5,51,5,52,5,53,5,54,5,55,5,56,5,57,5,58,5,59,5,60,5,61,5,62,5,63,5,64,5,65,5,66,5,67,5,68,5,69,5,211,5,212,5,213,5,70,5,71,5,72,5,73,5,74,5,75,5,76,5,77,5,78,5,79,5,80,5,81,5,82,5,83,5,84,5,85,5,86,5,87,5,88,5,89,5,90,5,91,5,92,5,93,5,94,5,95,5,96,5,97,5,98,5,99,5,100,5,101,5,102,5,103,5,104,5,105,5,106,5,107,5,108,5,109,5,110,5,111,5,112,5,113,5,114,5</ChannelsGroup>
+  <ChannelsGroup ID="6" Name="Txt" Value="0">0,6,1,6,2,6,3,6,4,6,5,6,6,6,7,6,8,6,9,6,10,6,11,6,12,6,13,6,14,6,15,6,16,6,17,6,18,6,19,6,20,6,21,6,22,6,23,6,24,6,25,6,26,6,27,6,28,6,29,6,30,6,31,6,32,6,33,6,34,6,35,6,36,6,37,6,38,6,39,6,40,6,41,6,42,6,43,6,44,6,45,6,46,6,47,6,48,6,49,6,50,6,51,6,52,6,53,6,54,6,55,6,56,6,57,6,58,6,59,6,60,6,61,6,62,6,63,6,64,6,65,6,66,6,67,6,68,6,69,6,211,6,212,6,213,6,70,6,71,6,72,6,73,6,74,6,75,6,76,6,77,6,78,6,79,6,80,6,81,6,82,6,83,6,84,6,85,6,86,6,87,6,88,6,89,6,90,6,91,6,92,6,93,6,94,6,95,6,96,6,97,6,98,6,99,6,100,6,101,6,102,6,103,6,104,6,105,6,106,6,107,6,108,6,109,6,110,6,111,6,112,6,113,6,114,6</ChannelsGroup>
+  <ChannelsGroup ID="7" Name="RGBW" Value="0">0,0,0,1,0,2,0,3,1,0,1,1,1,2,1,3,2,0,2,1,2,2,2,3,3,0,3,1,3,2,3,3,4,0,4,1,4,2,4,3,5,0,5,1,5,2,5,3,6,0,6,1,6,2,6,3,7,0,7,1,7,2,7,3,8,0,8,1,8,2,8,3,9,0,9,1,9,2,9,3,10,0,10,1,10,2,10,3,11,0,11,1,11,2,11,3,12,0,12,1,12,2,12,3,13,0,13,1,13,2,13,3,14,0,14,1,14,2,14,3,15,0,15,1,15,2,15,3,16,0,16,1,16,2,16,3,17,0,17,1,17,2,17,3,18,0,18,1,18,2,18,3,19,0,19,1,19,2,19,3,20,0,20,1,20,2,20,3,21,0,21,1,21,2,21,3,22,0,22,1,22,2,22,3,23,0,23,1,23,2,23,3,24,0,24,1,24,2,24,3,25,0,25,1,25,2,25,3,26,0,26,1,26,2,26,3,27,0,27,1,27,2,27,3,28,0,28,1,28,2,28,3,29,0,29,1,29,2,29,3,30,0,30,1,30,2,30,3,31,0,31,1,31,2,31,3,32,0,32,1,32,2,32,3,33,0,33,1,33,2,33,3,34,0,34,1,34,2,34,3,35,0,35,1,35,2,35,3,36,0,36,1,36,2,36,3,37,0,37,1,37,2,37,3,38,0,38,1,38,2,38,3,39,0,39,1,39,2,39,3,40,0,40,1,40,2,40,3,41,0,41,1,41,2,41,3,42,0,42,1,42,2,42,3,43,0,43,1,43,2,43,3,44,0,44,1,44,2,44,3,45,0,45,1,45,2,45,3,46,0,46,1,46,2,46,3,47,0,47,1,47,2,47,3,48,0,48,1,48,2,48,3,49,0,49,1,49,2,49,3,50,0,50,1,50,2,50,3,51,0,51,1,51,2,51,3,52,0,52,1,52,2,52,3,53,0,53,1,53,2,53,3,54,0,54,1,54,2,54,3,55,0,55,1,55,2,55,3,56,0,56,1,56,2,56,3,57,0,57,1,57,2,57,3,58,0,58,1,58,2,58,3,59,0,59,1,59,2,59,3,60,0,60,1,60,2,60,3,61,0,61,1,61,2,61,3,62,0,62,1,62,2,62,3,63,0,63,1,63,2,63,3,64,0,64,1,64,2,64,3,65,0,65,1,65,2,65,3,66,0,66,1,66,2,66,3,67,0,67,1,67,2,67,3,68,0,68,1,68,2,68,3,69,0,69,1,69,2,69,3,211,0,211,1,211,2,211,3,212,0,212,1,212,2,212,3,213,0,213,1,213,2,213,3,70,0,70,1,70,2,70,3,71,0,71,1,71,2,71,3,72,0,72,1,72,2,72,3,73,0,73,1,73,2,73,3,74,0,74,1,74,2,74,3,75,0,75,1,75,2,75,3,76,0,76,1,76,2,76,3,77,0,77,1,77,2,77,3,78,0,78,1,78,2,78,3,79,0,79,1,79,2,79,3,80,0,80,1,80,2,80,3,81,0,81,1,81,2,81,3,82,0,82,1,82,2,82,3,83,0,83,1,83,2,83,3,84,0,84,1,84,2,84,3,85,0,85,1,85,2,85,3,86,0,86,1,86,2,86,3,87,0,87,1,87,2,87,3,88,0,88,1,88,2,88,3,89,0,89,1,89,2,89,3,90,0,90,1,90,2,90,3,91,0,91,1,91,2,91,3,92,0,92,1,92,2,92,3,93,0,93,1,93,2,93,3,94,0,94,1,94,2,94,3,95,0,95,1,95,2,95,3,96,0,96,1,96,2,96,3,97,0,97,1,97,2,97,3,98,0,98,1,98,2,98,3,99,0,99,1,99,2,99,3,100,0,100,1,100,2,100,3,101,0,101,1,101,2,101,3,102,0,102,1,102,2,102,3,103,0,103,1,103,2,103,3,104,0,104,1,104,2,104,3,105,0,105,1,105,2,105,3,106,0,106,1,106,2,106,3,107,0,107,1,107,2,107,3,108,0,108,1,108,2,108,3,109,0,109,1,109,2,109,3,110,0,110,1,110,2,110,3,111,0,111,1,111,2,111,3,112,0,112,1,112,2,112,3,113,0,113,1,113,2,113,3,114,0,114,1,114,2,114,3</ChannelsGroup>
+  <Function ID="1" Type="RGBMatrix" Name="lichtkrant">
+   <Speed FadeIn="0" FadeOut="0" Duration="100"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Text">
+    <Content>MENDELEEV</Content>
+    <Font>Arial,6,-1,5,50,0,0,0,0,0</Font>
+    <Animation>Horizontal</Animation>
+    <Offset X="0" Y="-1"/>
+   </Algorithm>
+   <MonoColor>4285780502</MonoColor>
+   <EndColor>4293863721</EndColor>
+   <ControlMode>RGB</ControlMode>
+   <FixtureGroup>1</FixtureGroup>
+  </Function>
+  <Function ID="4" Type="RGBMatrix" Name="rainbow">
+   <Speed FadeIn="0" FadeOut="484" Duration="81"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <Algorithm Type="Script">Random Pixel Per Row Multicolor</Algorithm>
+   <MonoColor>4293863721</MonoColor>
+   <EndColor>4285702095</EndColor>
+   <ControlMode>RGB</ControlMode>
+   <FixtureGroup>2</FixtureGroup>
+  </Function>
+  <Monitor DisplayMode="0" ShowLabels="0">
+   <Font>Arial,12,-1,5,50,0,0,0,0,0</Font>
+   <ChannelStyle>0</ChannelStyle>
+   <ValueStyle>0</ValueStyle>
+   <Grid Width="5" Height="3" Depth="5" Units="0"/>
+  </Monitor>
+ </Engine>
+ <VirtualConsole>
+  <Frame Caption="">
+   <Appearance>
+    <FrameStyle>None</FrameStyle>
+    <ForegroundColor>Default</ForegroundColor>
+    <BackgroundColor>Default</BackgroundColor>
+    <BackgroundImage>None</BackgroundImage>
+    <Font>Default</Font>
+   </Appearance>
+  </Frame>
+  <Properties>
+   <Size Width="1920" Height="1080"/>
+   <GrandMaster ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
+  </Properties>
+ </VirtualConsole>
+ <SimpleDesk>
+  <Engine/>
+ </SimpleDesk>
+</Workspace>

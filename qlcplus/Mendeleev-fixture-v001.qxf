@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.6</Version>
+  <Author>Bert Outtier</Author>
+ </Creator>
+ <Manufacturer>Mendeleev</Manufacturer>
+ <Model>v001</Model>
+ <Type>Other</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Warm white" Preset="IntensityWhite"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Text" Preset="IntensityWhite"/>
+ <Mode Name="mode1">
+  <Channel Number="0" ActsOn="0">Red</Channel>
+  <Channel Number="1" ActsOn="1">Green</Channel>
+  <Channel Number="2" ActsOn="2">Blue</Channel>
+  <Channel Number="3" ActsOn="3">Warm white</Channel>
+  <Channel Number="4" ActsOn="4">White</Channel>
+  <Channel Number="5" ActsOn="5">UV</Channel>
+  <Channel Number="6" ActsOn="6">Text</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>
