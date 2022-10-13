@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+from scapy.sendrecv import AsyncSniffer
+from mendeleev.artnet_packets import ArtNet_DMX
+import paho.mqtt.client as mqtt
+import socket
+import logging
+import argparse
+import sys
+
+logger = logging.getLogger(__name__)
+
+CLIENT_ID = "artnet2mqtt_bridge"
+
+class ArtnetBridge:
+    def __init__(self, iface, broker, prefix):
+        self.iface = iface
+        self.broker = broker
+        self.prefix = prefix
+        self.cache = {
+            0: b"\x00" * 73 * 7,
+            1: b"\x00" * 45 * 7,
+        }
+
+    def on_connect(self, client, userdata, flags, rc):
+        if rc==0:
+            logger.info("broker connected OK, start sniffing")
+            self.sniffer.start()
+        else:
+            logger.error("Bad connection Returned code=",rc)
+            client.bad_connection_flag=True
+
+    def on_disconnect(self, client, userdata, rc):
+        logger.error("disconnected, stop sniffing. rc=", rc)
+        self.sniffer.stop()
+        client.loop_stop()
+
+    def process_dmx_msg(self, pkt):
+        if not pkt.haslayer(ArtNet_DMX):
+            logger.warning("unexpected packet: %s" % (pkt.show2(dump=True)))
+            return
+        dmx_pkt = pkt[ArtNet_DMX]
+        universe = dmx_pkt.universe
+        if dmx_pkt.data_length is None or dmx_pkt.data_length != 512:
+            logger.warning("data length not correct")
+            logger.warning(dmx_pkt.show2(dump=True))
+            return
+        new_data = dmx_pkt.payload.load
+        old_data = self.cache[universe]
+        self.cache[universe] = new_data
+
+        if universe == 0:
+            start = 0 + 7
+            end = (73 * 7) + 1
+        elif universe == 1:
+            start = (73 * 7) + 7
+            end = (118 * 7) + 1
+
+        for i in range(start, end, 7):
+            element = i // 7
+            new_element_data, new_data = new_data[:7], new_data[7:]
+            old_element_data, old_data = old_data[:7], old_data[7:]
+            if new_element_data != old_element_data:
+                topic = f"{self.prefix}/{element}/setcolor"
+                logger.debug("updating color of element %d: %s" % (element, new_element_data.hex()))
+                self.client.publish(topic, new_element_data)
+
+    def main(self):
+        self.client = mqtt.Client(client_id=CLIENT_ID)
+        self.client.on_disconnect = self.on_disconnect
+        self.client.on_connect = self.on_connect
+        self.client.connect(self.broker, 1883, 60)
+        self.client.socket().setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
+        self.sniffer = AsyncSniffer(
+            iface=self.iface,
+            store=False,
+            filter="udp port 6454",
+            lfilter=lambda x: x.haslayer(ArtNet_DMX),
+            prn=self.process_dmx_msg
+        )
+        self.client.loop_forever()
+
+def main(argv):
+    parser = argparse.ArgumentParser(description="Set up Artnet to MQTT bridge")
+    parser.add_argument("-i", "--iface", default=None, help="The network interface to listen on (default: all interfaces)")
+    parser.add_argument("-b", "--broker", default="localhost", help="The MQTT broker")
+    parser.add_argument("-p", "--prefix", default="mendeleev", help="The MQTT topic prefix")
+    parser.add_argument("-l", "--log", default="INFO", dest="logLevel", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], help="Set the logging level")
+    parser.add_argument("-f", "--logfile", default=None, help="set logfile")
+
+    args = parser.parse_args(argv)
+
+    logging.basicConfig(level=logging.getLevelName(args.logLevel), filename=args.logfile, format="%(asctime)s - %(levelname)-8s - %(message)s")
+
+    logger.info("Start listening and %s with prefix %s", args.broker, args.prefix)
+    ArtnetBridge(args.iface, args.broker, args.prefix).main()
+    logger.info("Finished")
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

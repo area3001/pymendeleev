@@ -7,7 +7,7 @@ from serial_asyncio import create_serial_connection
 from scapy.packet import Raw
 import struct
 
-from .mendeleev_packets import *
+from mendeleev.layers.mendeleev import MendeleevHeader
 
 logger = logging.getLogger(__name__)
 
@@ -76,8 +76,6 @@ class MendeleevProtocol(asyncio.Protocol):
         self._sent_pkt = pkt
         self._recv_future = self._loop.create_future()
         with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
-        logger.debug("sending %s", with_preamble_bytes)
-        # logger.debug("sending %s", with_preamble_bytes)
         self._transport.write(with_preamble_bytes)
         return await asyncio.wait_for(self._recv_future, timeout)
 
