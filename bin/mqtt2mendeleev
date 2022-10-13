@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-import paho.mqtt.client as mqtt
-import socket
-import logging
-import asyncio
-import sys
-import os
 import argparse
+import asyncio
+import logging
+import os
+import socket
+import sys
 
-from scapy.packet import NoPayload
-
+import paho.mqtt.client as mqtt
 from mendeleev.mendeleev_protocol import MendeleevProtocol
+from scapy.packet import NoPayload
 
 logger = logging.getLogger(__name__)
 

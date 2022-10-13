@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-from scapy.sendrecv import AsyncSniffer
-from mendeleev.artnet_packets import ArtNet_DMX
-import paho.mqtt.client as mqtt
-import socket
-import logging
 import argparse
+import logging
+import socket
 import sys
+
+import paho.mqtt.client as mqtt
+from mendeleev.layers.artnet import ArtNet_DMX, ArtNet_NZS
+from scapy.sendrecv import AsyncSniffer
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +75,7 @@ class ArtnetBridge:
             iface=self.iface,
             store=False,
             filter="udp port 6454",
-            lfilter=lambda x: x.haslayer(ArtNet_DMX),
+            lfilter=lambda x: x.haslayer(ArtNet_DMX) or x.haslayer(ArtNet_NZS),
             prn=self.process_dmx_msg
         )
         self.client.loop_forever()
