@@ -130,7 +130,8 @@ COMMANDS = {
     0x02: "ota",
     0x03: "version",
     0x04: "setoutput",
-    0x05: "reboot"
+    0x05: "reboot",
+    0x06: "setup"
 }
 
 MODES = {

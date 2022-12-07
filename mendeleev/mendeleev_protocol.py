@@ -12,6 +12,7 @@ from mendeleev.layers.mendeleev import MendeleevHeader
 logger = logging.getLogger(__name__)
 
 class MendeleevProtocol(asyncio.Protocol):
+    _BUF_MAX = 240
     _PREAMBLE_LENGTH = 8
     _PREAMBLE_BYTE = b"\xA5"
     _PACKET_OVERHEAD = 9
@@ -150,7 +151,7 @@ class MendeleevProtocol(asyncio.Protocol):
 
     async def send_ota(self, destination, data, timeout=3):
         async with self._request_lock:
-            for d in self._get_ota_fragments(data, 240-9-8):
+            for d in self._get_ota_fragments(data, self._BUF_MAX-self._PACKET_OVERHEAD-self._PREAMBLE_LENGTH):
                 request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 response = await self._send_recv(request, timeout)
@@ -159,7 +160,7 @@ class MendeleevProtocol(asyncio.Protocol):
 
     async def broadcast_ota(self, data, wait=.5):
         async with self._request_lock:
-            for d in self._get_ota_fragments(data, 240-9-8):
+            for d in self._get_ota_fragments(data, self._BUF_MAX-self._PACKET_OVERHEAD-self._PREAMBLE_LENGTH):
                 request = MendeleevHeader(sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 await self._broadcast(request, wait)
