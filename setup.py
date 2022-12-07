@@ -30,7 +30,8 @@ setup(
         'async-timeout==4.0.2',
         'pyserial-asyncio==0.6',
         'scapy==2.4.5',
-        'paho-mqtt==1.4.0'
+        'paho-mqtt==1.4.0',
+        'aioconsole==0.5.1'
     ],
     scripts=[
         'bin/mqtt2mendeleev',

@@ -135,8 +135,10 @@ COMMANDS = {
 }
 
 MODES = {
+    0x00: "ota",
     0x01: "guest",
-    0x02: "teacher"
+    0x02: "teacher",
+    0x03: "setup"
 }
 
 table_crc_hi = [

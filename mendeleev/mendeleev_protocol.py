@@ -18,7 +18,7 @@ class MendeleevProtocol(asyncio.Protocol):
     _PACKET_OVERHEAD = 9
     _BAUD_RATE = 38400
 
-    def __init__(self, url):
+    def __init__(self, url, src_addr=0):
         super().__init__()
         self._url = urlparse(url)
         self._transport = None
@@ -28,8 +28,13 @@ class MendeleevProtocol(asyncio.Protocol):
         self._lock = None
         self._request_lock = None
         self._sent_pkt = None
-        self._recv_future = None
         self._sequence_number = 0x0000
+        self._src_addr = src_addr
+        self.queue = asyncio.Queue()
+
+    async def process_data(self, pkt):
+        logger.debug("queuing: %s", pkt.show(dump=True))
+        await self.queue.put(pkt)
 
     def data_received(self, data: bytes):
         self._transport.pause_reading()
@@ -41,6 +46,11 @@ class MendeleevProtocol(asyncio.Protocol):
                 data_len = struct.unpack(">H", self._buf[13:15])[0]
                 pkt_length = self._PREAMBLE_LENGTH + self._PACKET_OVERHEAD + data_len
 
+                if pkt_length > self._BUF_MAX:
+                    logger.warning("invalid packet length: %d" % (pkt_length))
+                    self._buf = self._buf[1:]
+                    continue
+
                 if pkt_length > len(self._buf):
                     # not everything received yet
                     break
@@ -48,25 +58,11 @@ class MendeleevProtocol(asyncio.Protocol):
                 pkt_bytes = self._buf[self._PREAMBLE_LENGTH:pkt_length]
                 try:
                     pkt = MendeleevHeader(pkt_bytes)
+                    asyncio.ensure_future(self.process_data(pkt))
                 except Exception as e:
                     logger.error("Invalid packet received:")
                     logger.exception(e)
-                    self._buf = self._buf[pkt_length:]
-                    continue
-
                 self._buf = self._buf[pkt_length:]
-
-                if not self._recv_future or \
-                   self._recv_future.done() or \
-                   self._recv_future.cancelled():
-                    logger.warning("No future set for response")
-                    continue
-
-                if pkt.answers(self._sent_pkt):
-                    self._recv_future.set_result(pkt)
-                else:
-                    logger.error("%s does not answer %s", pkt.show(dump=True), self._sent_pkt.show(dump=True))
-                    self._recv_future.cancel()
             else:
                 logger.error("Unknown byte: %02x" % (self._buf[0]))
                 self._buf = self._buf[1:]
@@ -74,11 +70,14 @@ class MendeleevProtocol(asyncio.Protocol):
         self._transport.resume_reading()
 
     async def _send_recv(self, pkt, timeout=3):
-        self._sent_pkt = pkt
-        self._recv_future = self._loop.create_future()
-        with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
-        self._transport.write(with_preamble_bytes)
-        return await asyncio.wait_for(self._recv_future, timeout)
+        self._transport.write((self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt))
+        answ_pkt = await asyncio.wait_for(self.queue.get(), timeout)
+        if not answ_pkt.answers(pkt):
+            logger.warning("%s does not answer %s", answ_pkt.show(dump=True), pkt.show(dump=True))
+        return answ_pkt
+
+    async def _recv(self, timeout=3):
+        return await asyncio.wait_for(self.queue.get(), timeout)
 
     async def _broadcast(self, pkt, wait=.5):
         with_preamble_bytes = (self._PREAMBLE_BYTE * self._PREAMBLE_LENGTH) + bytes(pkt)
@@ -152,7 +151,7 @@ class MendeleevProtocol(asyncio.Protocol):
     async def send_ota(self, destination, data, timeout=3):
         async with self._request_lock:
             for d in self._get_ota_fragments(data, self._BUF_MAX-self._PACKET_OVERHEAD-self._PREAMBLE_LENGTH):
-                request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
+                request = MendeleevHeader(source=self._src_addr, destination=destination, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 response = await self._send_recv(request, timeout)
                 if response.cmd != request.cmd:
@@ -161,19 +160,25 @@ class MendeleevProtocol(asyncio.Protocol):
     async def broadcast_ota(self, data, wait=.5):
         async with self._request_lock:
             for d in self._get_ota_fragments(data, self._BUF_MAX-self._PACKET_OVERHEAD-self._PREAMBLE_LENGTH):
-                request = MendeleevHeader(sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
+                request = MendeleevHeader(source=self._src_addr, sequence_nr=self._sequence_number, cmd="ota") / Raw(d)
                 self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
                 await self._broadcast(request, wait)
 
     async def broadcast_cmd(self, command, data, wait=.5):
         async with self._request_lock:
-            request = MendeleevHeader(sequence_nr=self._sequence_number, cmd=command) / Raw(data)
+            request = MendeleevHeader(source=self._src_addr, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
             await self._broadcast(request, wait)
 
+    async def receive(self, destination=0x00, timeout=None): # block until something received
+        async with self._request_lock:
+            pkt = await self._recv(timeout)
+            if pkt.destination == destination or pkt.destination == 0xFF:
+                return pkt
+
     async def send_cmd(self, destination, command, data, timeout=3):
         async with self._request_lock:
-            request = MendeleevHeader(destination=destination, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
+            request = MendeleevHeader(source=self._src_addr, destination=destination, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
             self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
             response = await self._send_recv(request, timeout)
             if response.cmd == request.cmd:
