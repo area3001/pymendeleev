@@ -6,7 +6,7 @@ import sys
 import struct
 import aioconsole
 
-from mendeleev.mendeleev_protocol import MendeleevProtocol
+from mendeleev.mendeleev_serial import MendeleevSerial
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +16,8 @@ async def address_iterator(default=1):
     return int((await aioconsole.ainput('which address do you want to set? [%d]' % (default))) or default)
 
 class AddressingProcedure:
-    def __init__(self, loop, device, broadcasttimeout, automode):
-        self.loop = loop
-        self.m = MendeleevProtocol(device)
+    def __init__(self, device, broadcasttimeout, automode):
+        self.m = MendeleevSerial(device)
         self.broadcasttimeout = broadcasttimeout
         self.automode = automode
 
@@ -33,15 +32,17 @@ class AddressingProcedure:
         result = await self.m.receive(destination=0xFF, timeout=timeout)
         if result is None or result.cmd != 0x06 or result.payload.load[0] != 0x01:
             raise Exception("expected to receive a setup_ready response")
+        print("received setup_ready from %d" % (result.source))
 
         # wait a bit
         await asyncio.sleep(.2)
 
         # send the new address
         await self.m.broadcast_cmd("setup", b"\x02" + struct.pack("B", next_addr), self.broadcasttimeout)
+        print("sent address %d" % (next_addr))
 
     async def main(self):
-        await self.m.connect(self.loop)
+        await self.m.connect()
         await self.start_setup(True)
 
         elem = 1
@@ -81,7 +82,7 @@ def main(argv):
 
     logger.info("Starting on %s", args.device)
     loop = asyncio.get_event_loop()
-    p = AddressingProcedure(loop, args.device, args.broadcastwait, args.auto)
+    p = AddressingProcedure(args.device, args.broadcastwait, args.auto)
     try:
         loop.run_until_complete(p.main())
     except KeyboardInterrupt:
