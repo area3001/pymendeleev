@@ -27,10 +27,9 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
-        'async-timeout==4.0.2',
         'pyserial-asyncio==0.6',
         'scapy==2.4.5',
-        'paho-mqtt==1.4.0',
+        'asyncio-mqtt==0.16.1',
         'aioconsole==0.5.1'
     ],
     scripts=[

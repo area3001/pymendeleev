@@ -1,47 +1,45 @@
 #!/usr/bin/env python3
 import argparse
+import asyncio
 import logging
 import socket
 import sys
 
-import paho.mqtt.client as mqtt
-from mendeleev.layers.artnet import ArtNet_DMX, ArtNet_NZS
-from scapy.sendrecv import AsyncSniffer
+import asyncio_mqtt as aiomqtt
+
+from mendeleev.layers.artnet import ArtNet, ArtNet_DMX
 
 logger = logging.getLogger(__name__)
 
 CLIENT_ID = "artnet2mqtt_bridge"
+CHANNELS_PER_ELEMENT = 7
+ELEMENTS = 118
+MAX_UNIVERSE = 512
+MAX_ELEMENTS_PER_UNIVERSE = MAX_UNIVERSE // CHANNELS_PER_ELEMENT
+PORT = 6454
 
-class ArtnetBridge:
-    def __init__(self, iface, broker, prefix):
-        self.iface = iface
-        self.broker = broker
+class ArtnetProtocol(asyncio.DatagramProtocol):
+    def __init__(self, client, prefix, on_con_lost):
+        super().__init__()
+        self.client = client
         self.prefix = prefix
+        self.on_con_lost = on_con_lost
+        self.transport = None
         self.cache = {
-            0: b"\x00" * 73 * 7,
-            1: b"\x00" * 45 * 7,
+            0: b"\x00" * MAX_UNIVERSE,
+            1: b"\x00" * MAX_UNIVERSE,
+            2: b"\x00" * MAX_UNIVERSE,
+            3: b"\x00" * MAX_UNIVERSE,
         }
 
-    def on_connect(self, client, userdata, flags, rc):
-        if rc==0:
-            logger.info("broker connected OK, start sniffing")
-            self.sniffer.start()
-        else:
-            logger.error("Bad connection Returned code=",rc)
-            client.bad_connection_flag=True
+    def connection_made(self, transport):
+        logger.debug("connection made")
+        self.transport = transport
 
-    def on_disconnect(self, client, userdata, rc):
-        logger.error("disconnected, stop sniffing. rc=", rc)
-        self.sniffer.stop()
-        client.loop_stop()
-
-    def process_dmx_msg(self, pkt):
-        if not pkt.haslayer(ArtNet_DMX):
-            logger.warning("unexpected packet: %s" % (pkt.show2(dump=True)))
-            return
+    async def process_dmx_msg(self, pkt):
         dmx_pkt = pkt[ArtNet_DMX]
         universe = dmx_pkt.universe
-        if dmx_pkt.data_length is None or dmx_pkt.data_length != 512:
+        if dmx_pkt.data_length is None or dmx_pkt.data_length != MAX_UNIVERSE:
             logger.warning("data length not correct")
             logger.warning(dmx_pkt.show2(dump=True))
             return
@@ -49,36 +47,53 @@ class ArtnetBridge:
         old_data = self.cache[universe]
         self.cache[universe] = new_data
 
-        if universe == 0:
-            start = 0 + 7
-            end = (73 * 7) + 1
-        elif universe == 1:
-            start = (73 * 7) + 7
-            end = (118 * 7) + 1
+        start = (universe * MAX_ELEMENTS_PER_UNIVERSE * CHANNELS_PER_ELEMENT) + CHANNELS_PER_ELEMENT
+        end = min(((universe + 1) * MAX_ELEMENTS_PER_UNIVERSE * CHANNELS_PER_ELEMENT) + 1, ((ELEMENTS * CHANNELS_PER_ELEMENT) + 1))
 
-        for i in range(start, end, 7):
-            element = i // 7
-            new_element_data, new_data = new_data[:7], new_data[7:]
-            old_element_data, old_data = old_data[:7], old_data[7:]
+        for i in range(start, end, CHANNELS_PER_ELEMENT):
+            element = i // CHANNELS_PER_ELEMENT
+            new_element_data, new_data = new_data[:CHANNELS_PER_ELEMENT], new_data[CHANNELS_PER_ELEMENT:]
+            old_element_data, old_data = old_data[:CHANNELS_PER_ELEMENT], old_data[CHANNELS_PER_ELEMENT:]
             if new_element_data != old_element_data:
                 topic = f"{self.prefix}/{element}/setcolor"
                 logger.debug("updating color of element %d: %s" % (element, new_element_data.hex()))
-                self.client.publish(topic, new_element_data)
+                try:
+                    await self.client.publish(topic, payload=new_element_data)
+                except aiomqtt.MqttError:
+                    print("mqtt connection failed")
+                    self.transport.close()
 
-    def main(self):
-        self.client = mqtt.Client(client_id=CLIENT_ID)
-        self.client.on_disconnect = self.on_disconnect
-        self.client.on_connect = self.on_connect
-        self.client.connect(self.broker, 1883, 60)
-        self.client.socket().setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
-        self.sniffer = AsyncSniffer(
-            iface=self.iface,
-            store=False,
-            filter="udp port 6454",
-            lfilter=lambda x: x.haslayer(ArtNet_DMX) or x.haslayer(ArtNet_NZS),
-            prn=self.process_dmx_msg
-        )
-        self.client.loop_forever()
+    def datagram_received(self, data, addr):
+        try:
+            pkt = ArtNet(data)
+            if pkt.haslayer(ArtNet_DMX):
+                asyncio.ensure_future(self.process_dmx_msg(pkt))
+        except Exception as e:
+            logger.error("Invalid packet received:")
+            logger.exception(e)
+
+    def error_received(self, exc):
+        print('Error received:', exc)
+
+    def connection_lost(self, exc):
+        print("artnet connection closed:", exc)
+        self.on_con_lost.set_result(True)
+
+async def artnetbridge(loop, iface, broker, prefix):
+    reconnect_interval = 5  # In seconds
+    while True:
+        on_con_lost = loop.create_future()
+        try:
+            async with aiomqtt.Client(broker, client_id=CLIENT_ID) as client:
+                with socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) as sock:
+                    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                    sock.bind(("", PORT))
+                    transport, _ = await loop.create_datagram_endpoint(lambda: ArtnetProtocol(client, prefix, on_con_lost), sock=sock)
+                    await on_con_lost
+                    transport.close()
+        except aiomqtt.MqttError as error:
+            print(f'Error "{error}". Reconnecting in {reconnect_interval} seconds.')
+            await asyncio.sleep(reconnect_interval)
 
 def main(argv):
     parser = argparse.ArgumentParser(description="Set up Artnet to MQTT bridge")
@@ -93,7 +108,9 @@ def main(argv):
     logging.basicConfig(level=logging.getLevelName(args.logLevel), filename=args.logfile, format="%(asctime)s - %(levelname)-8s - %(message)s")
 
     logger.info("Start listening and %s with prefix %s", args.broker, args.prefix)
-    ArtnetBridge(args.iface, args.broker, args.prefix).main()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(artnetbridge(loop, args.iface, args.broker, args.prefix))
+    loop.close()
     logger.info("Finished")
 
 if __name__ == "__main__":

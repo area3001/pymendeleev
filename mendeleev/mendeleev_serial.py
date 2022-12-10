@@ -57,7 +57,7 @@ class MendeleevSerial:
         return answ_pkt
 
     async def send_cmd(self, destination, command, data, timeout=3):
-        request = MendeleevHeader(source=self._src_addr, destination=destination, sequence_nr=self._sequence_number, cmd=command) / Raw(data)
+        request = MendeleevHeader(source=self._src_addr, destination=destination, sequence_nr=self._sequence_number, cmd=command) / data
         self._sequence_number = ((self._sequence_number + 1) & 0xFFFF)
         response = await self._send_recv(request, timeout)
         if response.cmd != request.cmd:

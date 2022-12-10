@@ -14,6 +14,10 @@ ARTNET_RDM_UID_WIDTH = 6 # Number of bytes in a RDM UID
 ARTNET_ESTA_SIZE = 2 # Length of the ESTA field
 ARTNET_IP_SIZE = 4 # Length of the IP field
 
+OEM_CODES = {
+    0x0a92: "Oem0x0a92",
+}
+
 OPCODES = {
     0x2000: "OpPoll", # This is an ArtPoll packet, no other data is contained in this UDP packet.
     0x2100: "OpPollReply", # This is an ArtPollReply Packet. It contains device status information.
@@ -88,7 +92,6 @@ class ArtNet(Packet):
     fields_desc = [
         StrFixedLenField("header", b"Art-Net\x00", 8),
         LEShortEnumField("opcode", 0, OPCODES),
-        ShortField("protocolVersion", 14),
     ]
 
 bind_layers(UDP, ArtNet, dport=6454)
@@ -96,6 +99,7 @@ bind_layers(UDP, ArtNet, dport=6454)
 class ArtNet_POLL(Packet):
     name = "POLL"
     fields_desc = [
+        ShortField("protocolVersion", 14),
         ByteField("ttm", 0),
         ByteField("pad", 0),
     ]
@@ -106,10 +110,10 @@ class ArtNet_REPLY(Packet):
     name = "REPLY"
     fields_desc = [
         LEShortField("sub", 0),
-        LEShortField("oem", 0),
+        LEShortEnumField("oem", 0, OEM_CODES),
         ByteField("ubea", 0),
-        ByteEnumField("status", 0, STATUS_CODES),
-        FieldListField("etsaman", [], ByteField("", None), count_from=lambda x: 2),
+        ByteField("status", 0),
+        StrFixedLenField("etsaman", "", 2), # ESTA manufacturer code. These codes are used to represent equipment manufacturer. They are assigned by ESTA. This field can be interpreted as two ASCII bytes representing the manufacturer initials.
         StrFixedLenField("shortname", "", ARTNET_SHORT_NAME_LENGTH),
         StrFixedLenField("longname", "", ARTNET_LONG_NAME_LENGTH),
         StrFixedLenField("nodereport", "", ARTNET_REPORT_LENGTH),
@@ -135,6 +139,7 @@ bind_layers(ArtNet, ArtNet_REPLY, opcode=0x2100)
 class ArtNet_DMX(Packet):
     name = "DMX"
     fields_desc = [
+        ShortField("protocolVersion", 14),
         ByteField("sequence", 0), # to fix for out-of-order delivery. 0 is disable
         ByteField("physical", 0),
         LEShortField("universe", 0),
@@ -146,6 +151,7 @@ bind_layers(ArtNet, ArtNet_DMX, opcode=0x5000)
 class ArtNet_NZS(Packet):
     name = "NZS"
     fields_desc = [
+        ShortField("protocolVersion", 14),
         ByteField("sequence", 0), # to fix for out-of-order delivery. 0 is disable
         ByteField("startcode", 0),
         ByteField("physical", 0),

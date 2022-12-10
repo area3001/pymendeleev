@@ -3,11 +3,10 @@ import argparse
 import asyncio
 import logging
 import os
-import socket
 import sys
 
-import paho.mqtt.client as mqtt
-from mendeleev.mendeleev_protocol import MendeleevProtocol
+import asyncio_mqtt as aiomqtt
+from mendeleev.mendeleev_serial import MendeleevSerial
 from scapy.packet import NoPayload
 
 logger = logging.getLogger(__name__)
@@ -25,79 +24,19 @@ def sensor_test():
 class TopicException(Exception):
     pass
 
-class AsyncioHelper:
-    def __init__(self, loop, client):
-        self.loop = loop
-        self.client = client
-        self.client.on_socket_open = self.on_socket_open
-        self.client.on_socket_close = self.on_socket_close
-        self.client.on_socket_register_write = self.on_socket_register_write
-        self.client.on_socket_unregister_write = self.on_socket_unregister_write
-
-    def on_socket_open(self, client, userdata, sock):
-        logger.debug("Socket opened")
-
-        def cb():
-            logger.debug("Socket is readable, calling loop_read")
-            client.loop_read()
-
-        self.loop.add_reader(sock, cb)
-        self.misc = self.loop.create_task(self.misc_loop())
-
-    def on_socket_close(self, client, userdata, sock):
-        logger.debug("Socket closed")
-        self.loop.remove_reader(sock)
-        self.misc.cancel()
-
-    def on_socket_register_write(self, client, userdata, sock):
-        logger.debug("Watching socket for writability.")
-
-        def cb():
-            logger.debug("Socket is writable, calling loop_write")
-            client.loop_write()
-
-        self.loop.add_writer(sock, cb)
-
-    def on_socket_unregister_write(self, client, userdata, sock):
-        logger.debug("Stop watching socket for writability.")
-        self.loop.remove_writer(sock)
-
-    async def misc_loop(self):
-        logger.debug("misc_loop started")
-        while self.client.loop_misc() == mqtt.MQTT_ERR_SUCCESS:
-            try:
-                await asyncio.sleep(1)
-            except asyncio.CancelledError:
-                break
-        logger.debug("misc_loop finished")
-
 class MendeleevBridge:
-    def __init__(self, loop, device, broker, prefix, timeout, broadcasttimeout):
-        self.loop = loop
-        self.m = MendeleevProtocol(device)
+    def __init__(self, device, broker, prefix, timeout, broadcasttimeout):
         self.broker = broker
+        self.serial = MendeleevSerial(device)
         self.prefix = prefix
         self.timeout = timeout
         self.broadcasttimeout = broadcasttimeout
 
-    def on_connect(self, client, userdata, flags, rc):
-        logger.info("Subscribing")
-        client.subscribe(self.prefix + "/+/+")
-
-    def on_message(self, client, userdata, msg):
-        if self.got_message:
-            self.got_message.set_result(msg)
-        else:
-            logger.warning("got_message not set!")
-
-    def on_disconnect(self, client, userdata, rc):
-        self.disconnected.set_result(rc)
-
     async def process_msg(self, msg):
-        splitted_topic = msg.topic.split("/")
+        splitted_topic = msg.topic.value.split("/")
 
         if len(splitted_topic) != 3:
-            raise TopicException("topic format is not correct: %s" % (msg.topic))
+            raise TopicException("topic format is not correct: %s" % (msg.topic.value))
 
         try:
             element = int(splitted_topic[1])
@@ -119,58 +58,47 @@ class MendeleevBridge:
         elif element == 0xFF:
             logger.debug("Broadcasting command %s", cmd)
             if cmd == "ota":
-                await self.m.broadcast_ota(msg.payload, self.broadcasttimeout)
+                await self.serial.broadcast_ota(msg.payload, self.broadcasttimeout)
             else:
-                await self.m.broadcast_cmd(cmd, msg.payload, self.broadcasttimeout)
+                await self.serial.broadcast_cmd(cmd, msg.payload, self.broadcasttimeout)
         else:
             logger.debug("Send command %s to %d...", cmd, element)
             if cmd == "ota":
-                await self.m.send_ota(element, msg.payload, self.timeout)
+                await self.serial.send_ota(element, msg.payload, self.timeout)
             else:
-                response = await self.m.send_cmd(element, cmd, msg.payload, self.timeout)
+                response = await self.serial.send_cmd(element, cmd, msg.payload, self.timeout)
                 if not isinstance(response, NoPayload):
                     logger.debug("reponse for command %s to %d: %s", cmd, element, response.show(dump=True))
                     return response
 
     async def main(self):
-        self.disconnected = self.loop.create_future()
-        self.got_message = None
-
-        self.client = mqtt.Client(client_id=CLIENT_ID)
-        self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
-        self.client.on_disconnect = self.on_disconnect
-
-        aioh = AsyncioHelper(self.loop, self.client)
-
-        await self.m.connect(self.loop)
-
-        self.client.connect(self.broker, 1883, 60)
-        self.client.socket().setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 2048)
-
+        await self.serial.connect()
+        reconnect_interval = 5  # In seconds
         while True:
-            self.got_message = self.loop.create_future()
-            msg = await self.got_message
             try:
-                result = await self.process_msg(msg)
-                if result:
-                    result = result.load.decode("utf-8")
-                self.client.publish(msg.topic + "/ack", result, qos=1)
-            except asyncio.TimeoutError:
-                logger.warning("timeout waiting for response for %s", msg.topic)
-                self.client.publish(msg.topic + "/nack", qos=1)
-            except TopicException as te:
-                logger.error("Invalid MQTT request")
-                logger.exception(te)
-                self.client.publish(msg.topic + "/nack", qos=1)
-            except Exception as e:
-                logger.error("error when processing %s", msg.topic)
-                logger.exception(e)
-                self.client.publish(msg.topic + "/nack", qos=1)
-            self.got_message = None
-
-        self.client.disconnect()
-        logger.info("Disconnected: {}".format(await self.disconnected))
+                async with aiomqtt.Client(self.broker, client_id=CLIENT_ID) as client:
+                    async with client.messages() as messages:
+                        await client.subscribe(self.prefix + "/+/+")
+                        async for msg in messages:
+                            try:
+                                result = await self.process_msg(msg)
+                                if result:
+                                    result = result.load.decode("utf-8")
+                                await client.publish(msg.topic.value + "/ack", result, qos=1)
+                            except asyncio.TimeoutError:
+                                logger.warning("timeout waiting for response for %s", msg.topic)
+                                await client.publish(msg.topic.value + "/nack", qos=1)
+                            except TopicException as te:
+                                logger.error("Invalid MQTT request")
+                                logger.exception(te)
+                                await client.publish(msg.topic.value + "/nack", qos=1)
+                            except Exception as e:
+                                logger.error("error when processing %s", msg.topic.value)
+                                logger.exception(e)
+                                await client.publish(msg.topic.value + "/nack", qos=1)
+            except aiomqtt.MqttError as error:
+                print(f'Error "{error}". Reconnecting in {reconnect_interval} seconds.')
+                await asyncio.sleep(reconnect_interval)
 
 def main(argv):
     parser = argparse.ArgumentParser(description="Set up Mendeleev MQTT bridge")
@@ -188,7 +116,7 @@ def main(argv):
 
     logger.info("Starting on %s and %s with prefix %s", args.device, args.broker, args.prefix)
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(MendeleevBridge(loop, args.device, args.broker, args.prefix, args.timeout, args.broadcastwait).main())
+    loop.run_until_complete(MendeleevBridge(args.device, args.broker, args.prefix, args.timeout, args.broadcastwait).main())
     loop.close()
     logger.info("Finished")
 
